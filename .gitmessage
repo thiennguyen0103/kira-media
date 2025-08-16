@@ -1,0 +1,63 @@
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+
+# Types:
+#   feat     (new feature for the user, not a new feature for build script)
+#   fix      (bug fix for the user, not a fix to a build script)
+#   docs     (changes to the documentation)
+#   style    (formatting, missing semi colons, etc; no production code change)
+#   refactor (refactoring production code, eg. renaming a variable)
+#   test     (adding missing tests, refactoring tests; no production code change)
+#   chore    (updating grunt tasks etc; no production code change)
+#   build    (changes that affect the build system or external dependencies)
+#   ci       (changes to CI configuration files and scripts)
+#   deps     (updating dependencies)
+#   upgrade  (upgrading dependencies or tools)
+#   security (security fixes)
+#   wip      (work in progress)
+#
+# Scopes:
+#   Examples: (video-editor), (timeline), (sidebar), (ui), (deps), etc.
+#
+# Subject:
+#   Use imperative mood: "change" not "changed" nor "changes"
+#   Don't capitalize first letter
+#   No dot (.) at the end
+#
+# Body:
+#   Use imperative mood: "change" not "changed" nor "changes"
+#   Include motivation for the change and contrast with previous behavior
+#
+# Footer:
+#   Breaking changes should start with "BREAKING CHANGE: "
+#   Issues should be referenced by "Closes #123" or "Fixes #123"
+#
+# Examples:
+#   feat(video-editor): add timeline scrubbing functionality
+#
+#   fix(timeline): resolve playhead positioning issue
+#
+#   docs(readme): update installation instructions
+#
+#   style(components): format code with prettier
+#
+#   refactor(sidebar): simplify tool selection logic
+#
+#   test(video-editor): add unit tests for timeline component
+#
+#   chore(deps): update commitlint to latest version
+#
+#   build(tailwind): upgrade to v4 with new configuration
+#
+#   ci(github): add commitlint workflow
+#
+#   deps(package): update next.js to 15.4.6
+#
+#   upgrade(tailwind): migrate from v3 to v4
+#
+#   security(auth): fix potential XSS vulnerability
+#
+#   wip(timeline): implement drag and drop functionality
