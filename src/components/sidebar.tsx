@@ -1,35 +1,15 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent } from '@/components/ui/card';
-import {
-  MousePointer,
-  Scissors,
-  Type,
-  Image,
-  Music,
-  Film,
-  FolderOpen,
-  Clock,
-  Layers,
-  Sparkles,
-  Palette,
-  Crop,
-  Import,
-  Video,
-  Search,
-  Grid,
-  List,
-  ChevronDown,
-  Play,
-  Square,
-  Plus,
-  Folder,
-  User,
-  Sparkles as SparklesIcon,
-  Globe,
-  BookOpen,
+import { 
+  Import, 
+  Video, 
+  ChevronDown, 
+  Folder, 
+  User, 
+  Sparkles as SparklesIcon, 
+  Globe, 
+  BookOpen 
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -38,148 +18,148 @@ interface SidebarProps {
 }
 
 export function Sidebar({ selectedTool, onToolSelect }: SidebarProps) {
+  const navigationItems = [
+    { id: 'media', label: 'Media', icon: Folder },
+    { id: 'audio', label: 'Audio', icon: Video },
+    { id: 'text', label: 'Text', icon: BookOpen },
+    { id: 'stickers', label: 'Stickers', icon: SparklesIcon },
+    { id: 'effects', label: 'Effects', icon: SparklesIcon },
+    { id: 'transitions', label: 'Transitions', icon: Video },
+    { id: 'captions', label: 'Captions', icon: BookOpen },
+    { id: 'filters', label: 'Filters', icon: SparklesIcon },
+    { id: 'adjustment', label: 'Adjustment', icon: Video },
+    { id: 'ai-avatars', label: 'AI avatars', icon: User },
+    { id: 'player', label: 'Player', icon: Video },
+  ];
+
   return (
-    <div className="bg-gray-800 flex w-80 flex-col border-r border-gray-700">
+    <div className="bg-card flex w-20 flex-col border-r border-border">
       {/* CapCut Style Import Section */}
-      <div className="p-5 border-b border-gray-700">
+      <div className="p-3 border-b border-border">
         <div className="space-y-3">
-          <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 font-medium shadow-sm">
-            <Import className="mr-2 h-4 w-4" />
-            + Import
+          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-9 font-medium shadow-sm p-0">
+            <Import className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" className="w-full bg-gray-700 hover:bg-gray-600 text-white border border-gray-600 h-11 font-medium">
-            <Video className="mr-2 h-4 w-4" />
-            Record
+          <Button variant="outline" className="w-full h-9 font-medium p-0">
+            <Video className="h-4 w-4" />
           </Button>
         </div>
         
-        {/* Search Bar - CapCut Style */}
-        <div className="mt-4 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Search media..."
-            className="w-full pl-10 pr-3 py-2.5 bg-gray-700 border border-gray-600 rounded-lg text-white text-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
-          />
-        </div>
-        
-        {/* View Options - CapCut Style */}
-        <div className="mt-4 flex items-center space-x-2">
-          <Button variant="ghost" size="sm" className="h-9 w-9 p-0 bg-gray-700 hover:bg-gray-600 text-white rounded-lg">
-            <Grid className="h-4 w-4" />
-          </Button>
-          <Button variant="ghost" size="sm" className="h-9 w-9 p-0 bg-gray-700 hover:bg-gray-600 text-white rounded-lg">
-            <List className="h-4 w-4" />
-          </Button>
+        {/* Large Drag and Drop Area - CapCut Style */}
+        <div className="mt-4">
+          <div className="w-full h-32 bg-muted rounded-lg border-2 border-dashed border-border flex items-center justify-center">
+            <div className="text-center">
+              <svg className="w-8 h-8 mx-auto mb-2 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* CapCut Style Navigation */}
-      <div className="flex-1 p-5 space-y-5">
+      {/* CapCut Style Left Navigation with Red Border Highlight - Icons Only */}
+      <div className="flex-1 p-3 space-y-2">
+        {/* Navigation Categories */}
+        <div className="space-y-2">
+          {navigationItems.map((item) => {
+            const IconComponent = item.icon;
+            const isActive = selectedTool === item.id;
+            
+            return (
+              <div
+                key={item.id}
+                className={`relative cursor-pointer transition-all duration-200 group ${
+                  isActive ? 'bg-accent' : 'hover:bg-accent/50'
+                }`}
+                onClick={() => onToolSelect(item.id)}
+              >
+                {/* Red Border Highlight on Left Side */}
+                {isActive && (
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-500 rounded-r-sm"></div>
+                )}
+                
+                {/* Icon Only */}
+                <div className={`flex items-center justify-center p-3 rounded-lg ${
+                  isActive ? 'pl-4' : 'pl-3'
+                }`}>
+                  <IconComponent className={`h-5 w-5 ${
+                    isActive ? 'text-foreground' : 'text-muted-foreground'
+                  }`} />
+                </div>
+
+                {/* Tooltip */}
+                <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  {item.label}
+                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
         {/* Media Section */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between cursor-pointer hover:bg-gray-700 p-2 rounded-lg transition-colors">
-            <div className="flex items-center space-x-2">
-              <Folder className="h-4 w-4 text-blue-400" />
-              <h3 className="text-sm font-semibold text-white">Media</h3>
-            </div>
-            <ChevronDown className="h-4 w-4 text-gray-400" />
-          </div>
-          <div className="pl-6 space-y-2">
-            <div className="flex items-center space-x-3 p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors border border-gray-600">
-              <div className="w-14 h-9 bg-gray-600 rounded flex items-center justify-center flex-shrink-0">
-                <Play className="h-4 w-4 text-gray-400" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-white font-medium truncate">Walt Disney Short Film_Paperman.mp4</p>
-                <p className="text-xs text-gray-400">00:06:19:14</p>
-              </div>
-              <div className="bg-green-600 text-white text-xs px-2 py-1 rounded-full font-medium">
-                Added
-              </div>
-            </div>
-            <div className="flex items-center space-x-3 p-3 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors border border-gray-600">
-              <div className="w-14 h-9 bg-gray-600 rounded flex items-center justify-center flex-shrink-0">
-                <Play className="h-4 w-4 text-gray-400" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-white font-medium truncate">Sample Video.mp4</p>
-                <p className="text-xs text-gray-400">00:02:45:30</p>
-              </div>
-              <div className="bg-green-600 text-white text-xs px-2 py-1 rounded-full font-medium">
-                Added
-              </div>
+        <div className="space-y-2 pt-4 border-t border-border">
+          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+            <Folder className="h-5 w-5 text-blue-500" />
+            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+              Media Library
+              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
             </div>
           </div>
         </div>
 
         {/* Subprojects Section */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between cursor-pointer hover:bg-gray-700 p-2 rounded-lg transition-colors">
-            <div className="flex items-center space-x-2">
-              <Folder className="h-4 w-4 text-purple-400" />
-              <h3 className="text-sm font-semibold text-white">Subprojects</h3>
+        <div className="space-y-2">
+          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+            <Folder className="h-5 w-5 text-purple-500" />
+            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+              Subprojects
+              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
             </div>
-            <ChevronDown className="h-4 w-4 text-gray-400" />
-          </div>
-          <div className="pl-6">
-            <p className="text-xs text-gray-400 italic">No subprojects</p>
           </div>
         </div>
 
         {/* Yours Section */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between cursor-pointer hover:bg-gray-700 p-2 rounded-lg transition-colors">
-            <div className="flex items-center space-x-2">
-              <User className="h-4 w-4 text-green-400" />
-              <h3 className="text-sm font-semibold text-white">Yours</h3>
+        <div className="space-y-2">
+          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+            <User className="h-5 w-5 text-green-500" />
+            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+              Your Media
+              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
             </div>
-            <ChevronDown className="h-4 w-4 text-gray-400" />
-          </div>
-          <div className="pl-6">
-            <p className="text-xs text-gray-400 italic">No personal media</p>
           </div>
         </div>
 
         {/* AI Media Section */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between cursor-pointer hover:bg-gray-700 p-2 rounded-lg transition-colors">
-            <div className="flex items-center space-x-2">
-              <SparklesIcon className="h-4 w-4 text-yellow-400" />
-              <h3 className="text-sm font-semibold text-white">AI media</h3>
+        <div className="space-y-2">
+          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+            <SparklesIcon className="h-5 w-5 text-yellow-500" />
+            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+              AI Media
+              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
             </div>
-            <ChevronDown className="h-4 w-4 text-gray-400" />
-          </div>
-          <div className="pl-6">
-            <p className="text-xs text-gray-400 italic">No AI generated content</p>
           </div>
         </div>
 
         {/* Spaces Section */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between cursor-pointer hover:bg-gray-700 p-2 rounded-lg transition-colors">
-            <div className="flex items-center space-x-2">
-              <Globe className="h-4 w-4 text-cyan-400" />
-              <h3 className="text-sm font-semibold text-white">Spaces</h3>
+        <div className="space-y-2">
+          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+            <Globe className="h-5 w-5 text-cyan-500" />
+            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+              Spaces
+              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
             </div>
-            <ChevronDown className="h-4 w-4 text-gray-400" />
-          </div>
-          <div className="pl-6">
-            <p className="text-xs text-gray-400 italic">No shared spaces</p>
           </div>
         </div>
 
         {/* Library Section */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between cursor-pointer hover:bg-gray-700 p-2 rounded-lg transition-colors">
-            <div className="flex items-center space-x-2">
-              <BookOpen className="h-4 w-4 text-orange-400" />
-              <h3 className="text-sm font-semibold text-white">Library</h3>
+        <div className="space-y-2">
+          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+            <BookOpen className="h-5 w-5 text-orange-500" />
+            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+              Library
+              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
             </div>
-            <ChevronDown className="h-4 w-4 text-gray-400" />
-          </div>
-          <div className="pl-6">
-            <p className="text-xs text-gray-400 italic">No library items</p>
           </div>
         </div>
       </div>
