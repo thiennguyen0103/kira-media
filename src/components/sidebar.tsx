@@ -1,15 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { 
-  Import, 
-  Video, 
-  ChevronDown, 
-  Folder, 
-  User, 
-  Sparkles as SparklesIcon, 
-  Globe, 
-  BookOpen 
+import {
+  Import,
+  Video,
+  Folder,
+  User,
+  Sparkles as SparklesIcon,
+  Globe,
+  BookOpen,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -33,24 +32,34 @@ export function Sidebar({ selectedTool, onToolSelect }: SidebarProps) {
   ];
 
   return (
-    <div className="bg-card flex w-20 flex-col border-r border-border">
+    <div className="bg-card border-border flex w-20 flex-col border-r">
       {/* CapCut Style Import Section */}
-      <div className="p-3 border-b border-border">
+      <div className="border-border border-b p-3">
         <div className="space-y-3">
-          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-9 font-medium shadow-sm p-0">
+          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-9 w-full p-0 font-medium shadow-sm">
             <Import className="h-4 w-4" />
           </Button>
-          <Button variant="outline" className="w-full h-9 font-medium p-0">
+          <Button variant="outline" className="h-9 w-full p-0 font-medium">
             <Video className="h-4 w-4" />
           </Button>
         </div>
-        
+
         {/* Large Drag and Drop Area - CapCut Style */}
         <div className="mt-4">
-          <div className="w-full h-32 bg-muted rounded-lg border-2 border-dashed border-border flex items-center justify-center">
+          <div className="bg-muted border-border flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed">
             <div className="text-center">
-              <svg className="w-8 h-8 mx-auto mb-2 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              <svg
+                className="text-muted-foreground mx-auto mb-2 h-8 w-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M7 16a4 4 0 01-.88-7.903A5 4 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                />
               </svg>
             </div>
           </div>
@@ -58,39 +67,43 @@ export function Sidebar({ selectedTool, onToolSelect }: SidebarProps) {
       </div>
 
       {/* CapCut Style Left Navigation with Red Border Highlight - Icons Only */}
-      <div className="flex-1 p-3 space-y-2">
+      <div className="flex-1 space-y-2 p-3">
         {/* Navigation Categories */}
         <div className="space-y-2">
           {navigationItems.map((item) => {
             const IconComponent = item.icon;
             const isActive = selectedTool === item.id;
-            
+
             return (
               <div
                 key={item.id}
-                className={`relative cursor-pointer transition-all duration-200 group ${
+                className={`group relative cursor-pointer transition-all duration-200 ${
                   isActive ? 'bg-accent' : 'hover:bg-accent/50'
                 }`}
                 onClick={() => onToolSelect(item.id)}
               >
                 {/* Red Border Highlight on Left Side */}
                 {isActive && (
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-500 rounded-r-sm"></div>
+                  <div className="absolute top-0 bottom-0 left-0 w-1 rounded-r-sm bg-red-500"></div>
                 )}
-                
+
                 {/* Icon Only */}
-                <div className={`flex items-center justify-center p-3 rounded-lg ${
-                  isActive ? 'pl-4' : 'pl-3'
-                }`}>
-                  <IconComponent className={`h-5 w-5 ${
-                    isActive ? 'text-foreground' : 'text-muted-foreground'
-                  }`} />
+                <div
+                  className={`flex items-center justify-center rounded-lg p-3 ${
+                    isActive ? 'pl-4' : 'pl-3'
+                  }`}
+                >
+                  <IconComponent
+                    className={`h-5 w-5 ${
+                      isActive ? 'text-foreground' : 'text-muted-foreground'
+                    }`}
+                  />
                 </div>
 
                 {/* Tooltip */}
-                <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                <div className="pointer-events-none absolute left-full z-50 ml-2 rounded-md bg-gray-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                   {item.label}
-                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
+                  <div className="absolute top-1/2 left-0 h-0 w-0 -translate-x-1 -translate-y-1/2 transform border-t-2 border-b-2 border-l-4 border-t-transparent border-b-transparent border-l-gray-900"></div>
                 </div>
               </div>
             );
@@ -98,67 +111,67 @@ export function Sidebar({ selectedTool, onToolSelect }: SidebarProps) {
         </div>
 
         {/* Media Section */}
-        <div className="space-y-2 pt-4 border-t border-border">
-          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+        <div className="border-border space-y-2 border-t pt-4">
+          <div className="hover:bg-accent group flex cursor-pointer items-center justify-center rounded-lg p-3 transition-colors">
             <Folder className="h-5 w-5 text-blue-500" />
-            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+            <div className="pointer-events-none absolute left-full z-50 ml-2 rounded-md bg-gray-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
               Media Library
-              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
+              <div className="absolute top-1/2 left-0 h-0 w-0 -translate-x-1 -translate-y-1/2 transform border-t-2 border-b-2 border-l-4 border-t-transparent border-b-transparent border-l-gray-900"></div>
             </div>
           </div>
         </div>
 
         {/* Subprojects Section */}
         <div className="space-y-2">
-          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+          <div className="hover:bg-accent group flex cursor-pointer items-center justify-center rounded-lg p-3 transition-colors">
             <Folder className="h-5 w-5 text-purple-500" />
-            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+            <div className="pointer-events-none absolute left-full z-50 ml-2 rounded-md bg-gray-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
               Subprojects
-              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
+              <div className="absolute top-1/2 left-0 h-0 w-0 -translate-x-1 -translate-y-1/2 transform border-t-2 border-b-2 border-l-4 border-t-transparent border-b-transparent border-l-gray-900"></div>
             </div>
           </div>
         </div>
 
         {/* Yours Section */}
         <div className="space-y-2">
-          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+          <div className="hover:bg-accent group flex cursor-pointer items-center justify-center rounded-lg p-3 transition-colors">
             <User className="h-5 w-5 text-green-500" />
-            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+            <div className="pointer-events-none absolute left-full z-50 ml-2 rounded-md bg-gray-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
               Your Media
-              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
+              <div className="absolute top-1/2 left-0 h-0 w-0 -translate-x-1 -translate-y-1/2 transform border-t-2 border-b-2 border-l-4 border-t-transparent border-b-transparent border-l-gray-900"></div>
             </div>
           </div>
         </div>
 
         {/* AI Media Section */}
         <div className="space-y-2">
-          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+          <div className="hover:bg-accent group flex cursor-pointer items-center justify-center rounded-lg p-3 transition-colors">
             <SparklesIcon className="h-5 w-5 text-yellow-500" />
-            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+            <div className="pointer-events-none absolute left-full z-50 ml-2 rounded-md bg-gray-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
               AI Media
-              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
+              <div className="absolute top-1/2 left-0 h-0 w-0 -translate-x-1 -translate-y-1/2 transform border-t-2 border-b-2 border-l-4 border-t-transparent border-b-transparent border-l-gray-900"></div>
             </div>
           </div>
         </div>
 
         {/* Spaces Section */}
         <div className="space-y-2">
-          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+          <div className="hover:bg-accent group flex cursor-pointer items-center justify-center rounded-lg p-3 transition-colors">
             <Globe className="h-5 w-5 text-cyan-500" />
-            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+            <div className="pointer-events-none absolute left-full z-50 ml-2 rounded-md bg-gray-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
               Spaces
-              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
+              <div className="absolute top-1/2 left-0 h-0 w-0 -translate-x-1 -translate-y-1/2 transform border-t-2 border-b-2 border-l-4 border-t-transparent border-b-transparent border-l-gray-900"></div>
             </div>
           </div>
         </div>
 
         {/* Library Section */}
         <div className="space-y-2">
-          <div className="flex items-center justify-center cursor-pointer hover:bg-accent p-3 rounded-lg transition-colors group">
+          <div className="hover:bg-accent group flex cursor-pointer items-center justify-center rounded-lg p-3 transition-colors">
             <BookOpen className="h-5 w-5 text-orange-500" />
-            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+            <div className="pointer-events-none absolute left-full z-50 ml-2 rounded-md bg-gray-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
               Library
-              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-4 border-l-gray-900 border-t-2 border-t-transparent border-b-2 border-b-transparent"></div>
+              <div className="absolute top-1/2 left-0 h-0 w-0 -translate-x-1 -translate-y-1/2 transform border-t-2 border-b-2 border-l-4 border-t-transparent border-b-transparent border-l-gray-900"></div>
             </div>
           </div>
         </div>

@@ -1,226 +1,263 @@
-# Kira Media - Professional Video Editor
+# 🎬 Kira Media - Professional Video Editor
 
-A modern, web-based video editing application built with Next.js, TypeScript, and shadcn/ui. Kira Media provides a professional video editing experience similar to CapCut, with an intuitive interface and powerful editing tools.
+A modern, web-based video editing platform built with Next.js, TypeScript, and TanStack Query, featuring a comprehensive database-driven architecture.
 
 ## ✨ Features
 
-- **Professional Video Editing Interface**: Clean, modern UI designed for video editing workflows
-- **Multi-Track Timeline**: Support for video, audio, and text tracks
-- **Real-time Preview**: Live preview of your edits with playback controls
-- **Tool Selection**: Various editing tools including select, cut, text, image, audio, and video
-- **Responsive Design**: Works seamlessly across different screen sizes
-- **Dark/Light Theme**: Built-in theme support with CSS variables
-- **Modern Tech Stack**: Built with the latest web technologies
+- **Professional Video Editing**: Full-featured video editor with timeline, tracks, and effects
+- **Database-Driven**: PostgreSQL backend with comprehensive project management
+- **Real-time Updates**: TanStack Query for efficient data fetching and caching
+- **Advanced Filtering**: Search, sort, and filter projects by multiple criteria
+- **Responsive Design**: Modern UI built with Tailwind CSS and shadcn/ui components
+- **Scalable Architecture**: Production-ready database schema with proper indexing
 
-## 🚀 Tech Stack
+## 🏗️ Architecture
 
-- **Framework**: Next.js 15 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4 (Latest)
-- **UI Components**: shadcn/ui v2.10.0
-- **Icons**: Lucide React
-- **Package Manager**: Bun
-- **Code Quality**: ESLint, Prettier, Husky, lint-staged, commitlint
+### Frontend
 
-## 📋 Prerequisites
+- **Next.js 14**: App Router with TypeScript
+- **TanStack Query**: Server state management and caching
+- **Tailwind CSS**: Utility-first styling
+- **shadcn/ui**: Modern, accessible component library
+- **Lucide React**: Beautiful, customizable icons
 
-- Node.js 18+ or Bun 1.0+
-- Git
+### Backend
 
-## 🛠️ Installation
+- **PostgreSQL**: Production-ready database with comprehensive schema
+- **Connection Pooling**: Efficient database connection management
+- **Soft Deletes**: Data preservation with audit trails
+- **JSONB Support**: Flexible metadata storage
 
-1. **Clone the repository**
+## 🗄️ Database Schema
 
-   ```bash
-   git clone <your-repo-url>
-   cd kira-media
-   ```
+The application uses a comprehensive database schema designed for video editing workflows:
 
-2. **Install dependencies**
+- **Projects**: Video editing projects with metadata, status tracking, and collaboration
+- **Media**: File management with processing status and technical specifications
+- **Effects & Transitions**: Plugin-based system with parameter schemas
+- **User Management**: Role-based access control with organization support
+- **Timeline**: Track-based editing with precise timing and positioning
 
-   ```bash
-   bun install
-   ```
+See [DATABASE_SCHEMA.md](./DATABASE_SCHEMA.md) for complete schema documentation.
 
-3. **Start the development server**
+## 🚀 Getting Started
 
-   ```bash
-   bun run dev
-   ```
+### Prerequisites
 
-4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+- Node.js 18+
+- PostgreSQL 14+
+- Docker (optional, for development)
 
-## 📁 Project Structure
-
-```
-kira-media/
-├── src/
-│   ├── app/                 # Next.js App Router
-│   │   ├── globals.css     # Global styles and CSS variables (Tailwind v4)
-│   │   ├── layout.tsx      # Root layout component
-│   │   └── page.tsx        # Main page component
-│   ├── components/         # React components
-│   │   ├── ui/            # shadcn/ui components
-│   │   ├── header.tsx     # Application header
-│   │   ├── sidebar.tsx    # Left sidebar with tools
-│   │   ├── toolbar.tsx    # Top toolbar with controls
-│   │   ├── preview.tsx    # Video preview area
-│   │   ├── timeline.tsx   # Timeline component
-│   │   └── video-editor.tsx # Main editor component
-│   └── lib/               # Utility functions
-├── public/                # Static assets
-├── .husky/               # Git hooks
-├── .eslintrc.json        # ESLint configuration
-├── .prettierrc           # Prettier configuration
-├── .commitlintrc.js      # Commitlint configuration
-├── .gitmessage           # Git commit message template
-├── commitlint.config.js  # Alternative commitlint config
-├── postcss.config.mjs    # PostCSS configuration for Tailwind v4
-└── package.json          # Dependencies and scripts
-```
-
-## 🎯 Available Scripts
-
-- `bun run dev` - Start development server
-- `bun run build` - Build for production
-- `bun run start` - Start production server
-- `bun run lint` - Run ESLint
-- `bun run lint:fix` - Fix ESLint errors
-- `bun run format` - Format code with Prettier
-- `bun run format:check` - Check code formatting
-- `bun run type-check` - Run TypeScript type checking
-- `bun run commitlint` - Validate commit message
-- `bun run commitlint:check` - Check last commit message
-
-## 🎨 Customization
-
-### Adding New UI Components
-
-To add new shadcn/ui components:
+### 1. Clone the Repository
 
 ```bash
-bunx shadcn@latest add <component-name>
+git clone <repository-url>
+cd kira-media
 ```
 
-### Styling with Tailwind CSS v4
+### 2. Install Dependencies
 
-The application uses Tailwind CSS v4 with the new `@theme` directive for theming. Colors and other design tokens can be modified in:
+```bash
+npm install
+```
 
-- `src/app/globals.css` - CSS variables using `@theme` directive
-- `tailwind.config.ts` - Tailwind configuration and custom theme
+### 3. Database Setup
 
-#### Tailwind CSS v4 Features
+```bash
+# Start PostgreSQL with Docker
+docker-compose up -d postgres
 
-- **@theme directive**: Modern way to define CSS custom properties
-- **@import "tailwindcss"**: Simplified import syntax
-- **Improved performance**: Faster build times and smaller bundle sizes
-- **Better CSS-in-JS support**: Enhanced integration with modern frameworks
+# Or use your existing PostgreSQL instance
+```
 
-### Adding New Tools
+### 4. Environment Configuration
 
-To add new editing tools, modify the `tools` array in `src/components/sidebar.tsx`:
+```bash
+# Copy environment template
+cp env.example .env.local
+
+# Update database credentials in .env.local
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=kira_media
+DB_USER=kira_user
+DB_PASSWORD=kira_password
+```
+
+### 5. Database Initialization
+
+```bash
+# Run the database initialization script
+docker exec -it kira_media_postgres psql -U kira_user -d kira_media -f /docker-entrypoint-initdb.d/01-init-database.sql
+```
+
+### 6. Start Development Server
+
+```bash
+npm run dev
+```
+
+Visit [http://localhost:3000](http://localhost:3000) to see the application.
+
+## 📊 API Structure
+
+### Project Management
+
+- **GET /api/projects**: Fetch projects with filtering, sorting, and pagination
+- **GET /api/projects/[id]**: Get single project details
+- **POST /api/projects**: Create new project
+- **PUT /api/projects/[id]**: Update project
+- **DELETE /api/projects/[id]**: Soft delete project
+
+### Advanced Features
+
+- **Search & Filtering**: Text search, status filtering, tag-based filtering
+- **Sorting**: Multiple sort options (name, date, duration, views, likes)
+- **Pagination**: Efficient data loading with "Load More" functionality
+- **Statistics**: Project counts, duration totals, view analytics
+
+### Data Models
 
 ```typescript
-const tools = [
-  // ... existing tools
-  {
-    id: 'new-tool',
-    icon: NewIcon,
-    label: 'New Tool',
-    description: 'Description',
-  },
-];
+interface Project {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  status:
+    | 'draft'
+    | 'in_progress'
+    | 'review'
+    | 'approved'
+    | 'published'
+    | 'archived';
+  duration_seconds: number;
+  resolution_width?: number;
+  resolution_height?: number;
+  frame_rate?: number;
+  difficulty_level?: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  tags: string[];
+  thumbnail_url?: string;
+  created_by: string;
+  created_at: string;
+  updated_at: string;
+  view_count: number;
+  like_count: number;
+  share_count: number;
+}
 ```
 
 ## 🔧 Development
 
-### Code Quality
-
-The project includes several tools to maintain code quality:
-
-- **ESLint**: Code linting with TypeScript support
-- **Prettier**: Code formatting with Tailwind CSS v4 plugin
-- **Husky**: Git hooks for pre-commit checks
-- **lint-staged**: Run linters on staged files only
-- **commitlint**: Enforce conventional commit message format
-
-### Git Hooks
-
-Pre-commit hooks automatically:
-
-- Format code with Prettier
-- Fix ESLint errors
-- Ensure code quality before commits
-
-Commit-msg hooks automatically:
-
-- Validate commit message format using commitlint
-- Ensure commits follow conventional commit standards
-
-### Commit Message Conventions
-
-This project follows the [Conventional Commits](https://www.conventionalcommits.org/) specification. See [commit-conventions.md](./commit-conventions.md) for detailed guidelines.
-
-**Quick Examples:**
+### Available Scripts
 
 ```bash
-feat(video-editor): add timeline scrubbing functionality
-fix(timeline): resolve playhead positioning issue
-docs(readme): update installation instructions
-style(components): format code with prettier
-chore(deps): update dependencies
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run format       # Format code with Prettier
+npm run type-check   # Run TypeScript type checking
 ```
+
+### Code Quality
+
+- **ESLint**: Code linting with Next.js and TypeScript rules
+- **Prettier**: Code formatting with Tailwind CSS plugin
+- **TypeScript**: Strict type checking throughout the application
+- **Conventional Commits**: Structured commit message format
+
+### Database Development
+
+```bash
+# Connect to database
+docker exec -it kira_media_postgres psql -U kira_user -d kira_media
+
+# View tables
+\dt
+
+# Sample queries
+SELECT * FROM projects WHERE status = 'published';
+SELECT COUNT(*) FROM projects WHERE deleted_at IS NULL;
+```
+
+## 🎯 Key Features
+
+### Project Management
+
+- **Comprehensive Metadata**: Duration, resolution, frame rate, difficulty level
+- **Status Workflow**: Draft → In Progress → Review → Approved → Published → Archived
+- **Tag System**: Flexible categorization and search
+- **Collaboration**: Organization-based project sharing
+
+### Video Editing
+
+- **Timeline Interface**: Multi-track editing with precise timing
+- **Media Library**: File management with processing status
+- **Effects System**: Plugin-based effects with parameter validation
+- **Export Options**: Multiple output formats and quality settings
+
+### User Experience
+
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Dark/Light Mode**: Theme support with system preference detection
+- **Keyboard Shortcuts**: Power user productivity features
+- **Real-time Updates**: Live collaboration and status changes
+
+## 🔒 Security Features
+
+- **Role-Based Access Control**: 7-tier permission system
+- **Data Validation**: Input sanitization and constraint checking
+- **Soft Deletes**: Data recovery and audit trail support
+- **SQL Injection Protection**: Parameterized queries throughout
+
+## 📈 Performance
+
+- **Database Indexing**: Strategic indexes for common queries
+- **Connection Pooling**: Efficient database connection management
+- **Query Optimization**: Optimized SQL with proper JOINs
+- **Caching**: TanStack Query for client-side data caching
+- **Pagination**: Efficient data loading for large datasets
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy automatically on every push
-
-### Other Platforms
-
-The application can be deployed to any platform that supports Next.js:
+### Production Build
 
 ```bash
-bun run build
-bun run start
+npm run build
+npm run start
 ```
 
-## 🔄 Recent Updates
+### Docker Deployment
 
-### Tailwind CSS v4 Upgrade
+```bash
+# Build and run with Docker Compose
+docker-compose -f docker-compose.app.yml up -d
+```
 
-- ✅ Upgraded from Tailwind CSS v3.4.17 to v4.1.12
-- ✅ Updated PostCSS configuration for v4
-- ✅ Migrated CSS variables to use `@theme` directive
-- ✅ Updated configuration files for compatibility
-- ✅ Verified build and development server functionality
+### Environment Variables
 
-### shadcn/ui
+Ensure all required environment variables are set in production:
 
-- ✅ Current version: v2.10.0
-- ✅ All components compatible with Tailwind CSS v4
-- ✅ No migrations required
-
-### Commit Standards
-
-- ✅ Added commitlint for conventional commit validation
-- ✅ Configured Husky hooks for automatic validation
-- ✅ Created commit message template
-- ✅ Added comprehensive commit conventions documentation
+- Database credentials
+- Next.js configuration
+- Authentication secrets
+- External API keys
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes following conventional commit standards
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-**Important**: All commits must follow the conventional commit format. The commitlint hook will automatically validate your commit messages.
+### Development Guidelines
+
+- Follow the existing code style and conventions
+- Write meaningful commit messages using conventional commits
+- Include tests for new features
+- Update documentation as needed
 
 ## 📝 License
 
@@ -228,16 +265,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- [Next.js](https://nextjs.org/) - React framework
-- [shadcn/ui](https://ui.shadcn.com/) - Beautiful UI components
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework (v4)
-- [Lucide](https://lucide.dev/) - Beautiful icons
-- [commitlint](https://commitlint.js.org/) - Commit message validation
-
-## 📞 Support
-
-If you have any questions or need help, please open an issue on GitHub or contact the development team.
+- **shadcn/ui** for the beautiful component library
+- **TanStack** for the excellent React Query library
+- **Tailwind CSS** for the utility-first CSS framework
+- **Next.js** team for the amazing React framework
 
 ---
 
-Built with ❤️ using modern web technologies including Tailwind CSS v4
+## **Built with ❤️ for video creators everywhere**
+
+For questions and support, please open an issue or contact the development team.

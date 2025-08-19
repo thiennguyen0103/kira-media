@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { QueryProvider } from '@/lib/providers/query-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <div className="bg-background min-h-screen">{children}</div>
+        <QueryProvider>
+          <div className="bg-background min-h-screen">{children}</div>
+        </QueryProvider>
       </body>
     </html>
   );
